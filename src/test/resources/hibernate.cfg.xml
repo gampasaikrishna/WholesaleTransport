@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/vserves</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root123</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+	 <mapping class="com.slokam.vserves.bo.Address" />
+		<mapping class="com.slokam.vserves.bo.Person" />
+		<mapping class="com.slokam.vserves.bo.Payment" />
+		<mapping class="com.slokam.vserves.bo.Residence" />
+		<mapping class="com.slokam.vserves.bo.Role" />
+		<mapping class="com.slokam.vserves.bo.Service" />
+		<mapping class="com.slokam.vserves.bo.Login" />
+		<mapping class="com.slokam.vserves.bo.City" />
+		<mapping class="com.slokam.vserves.bo.Status" />
+		<mapping class="com.slokam.vserves.bo.Country" />
+		<mapping class="com.slokam.vserves.bo.State" />
+		<mapping class="com.slokam.vserves.bo.Category" />
+		<mapping class="com.slokam.vserves.bo.Role" />
+		<mapping class="com.slokam.vserves.bo.Workitem" /> 
+		 <mapping class="com.slokam.vserves.bo.SerialNumber" />
+	    <mapping class="com.slokam.vserves.bo.PaymentType" />
+	    <mapping class="com.slokam.vserves.bo.WorkitemStatus" />
+		
+
+	</session-factory>
+</hibernate-configuration>
