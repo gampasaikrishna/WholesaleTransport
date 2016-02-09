@@ -18,14 +18,18 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name="address")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
-public class Address  implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class ShopAddress  implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
+	
 	@Id
 	@GeneratedValue
 	@Column(name="id")
 	private Integer id;
+	
+	@Column(name="Shop_Name")
+	private String ShopName;
 	
 	@Column(name="landmark1")
 	private String landMark1;
@@ -35,6 +39,11 @@ public class Address  implements Serializable{
 
 	@Column(name="area_name")
 	private String areaName;
+	
+	
+	@OneToOne
+	@JoinColumn(name="shop_address")
+	private Address address;
 
 	@OneToOne
 	@JoinColumn(name="city_id")
@@ -54,10 +63,6 @@ public class Address  implements Serializable{
 	@OneToOne
 	@JoinColumn(name="login_id")
 	private Login login;
-	
-	@OneToOne(mappedBy="login",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private ShopAddress shop_address;
-	
 	
 	
 

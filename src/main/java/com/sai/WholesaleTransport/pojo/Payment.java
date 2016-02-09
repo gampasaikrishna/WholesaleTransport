@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.slokam.vserves.util.DateJsonDeserializer;
-import com.slokam.vserves.util.DateJsonSerializer;
+import com.sai.WholesaleTransport.util.DateJsonDeserializer;
+import com.sai.WholesaleTransport.util.DateJsonSerializer;
 
 @Entity
 @Table(name="payment")

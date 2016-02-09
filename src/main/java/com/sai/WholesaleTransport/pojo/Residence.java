@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Residence implements Serializable {
 	
-	private static final long serialVersionUID = -8617535957147426115L;
+/*	private static final long serialVersionUID = -8617535957147426115L;
     
 	@Id
 	@GeneratedValue
@@ -115,6 +115,6 @@ public class Residence implements Serializable {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+	*/
 	
 }

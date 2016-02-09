@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.slokam.vserves.util.DateJsonDeserializer;
-import com.slokam.vserves.util.DateJsonSerializer;
+import com.sai.WholesaleTransport.util.DateJsonDeserializer;
+import com.sai.WholesaleTransport.util.DateJsonSerializer;
 
 @Entity
 @Table(name="workitem")
@@ -50,10 +49,10 @@ public class Workitem implements Serializable {
 	@Column(name = "joining_date")
 	private Date date;
 
-	@OneToOne
+	/*@OneToOne
 	@JoinColumn(name="workitemstatus_id")
 	private WorkitemStatus  workitemstatus;
-
+*/
 	@Column(name="another_mobile_number")
 	private String anotherMobileNo;
 
@@ -103,13 +102,13 @@ public class Workitem implements Serializable {
 
 	
 
-	public WorkitemStatus getWorkitemstatus() {
+/*	public WorkitemStatus getWorkitemstatus() {
 		return workitemstatus;
 	}
 
 	public void setWorkitemstatus(WorkitemStatus workitemstatus) {
 		this.workitemstatus = workitemstatus;
-	}
+	}*/
 
 	public String getAnotherMobileNo() {
 		return anotherMobileNo;

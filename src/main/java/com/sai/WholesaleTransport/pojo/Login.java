@@ -132,7 +132,7 @@ public class Login implements UserDetails {
 	}
 @JsonIgnore
 public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
+		
 		return role;
 	}
 
@@ -140,22 +140,22 @@ public Collection<? extends GrantedAuthority> getAuthorities() {
 
 @JsonIgnore
 public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
+		
 		return true;
 	}
 @JsonIgnore
 public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
+		
 		return true;
 	}
 @JsonIgnore
 public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
+		
 		return true;
 	}
 @JsonIgnore
 public boolean isEnabled() {
-		// TODO Auto-generated method stub
+		
 		return true;
 	}
 

@@ -51,7 +51,7 @@ public class Role implements GrantedAuthority {
 	
 	@JsonIgnore
 	public String getAuthority() {
-		// TODO Auto-generated method stub
+		
 		return name;
 	}
 	
