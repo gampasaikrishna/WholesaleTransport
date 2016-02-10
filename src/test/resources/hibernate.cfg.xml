@@ -7,24 +7,10 @@
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">root123</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-
-	 <mapping class="com.slokam.vserves.bo.Address" />
-		<mapping class="com.slokam.vserves.bo.Person" />
-		<mapping class="com.slokam.vserves.bo.Payment" />
-		<mapping class="com.slokam.vserves.bo.Residence" />
-		<mapping class="com.slokam.vserves.bo.Role" />
-		<mapping class="com.slokam.vserves.bo.Service" />
-		<mapping class="com.slokam.vserves.bo.Login" />
-		<mapping class="com.slokam.vserves.bo.City" />
-		<mapping class="com.slokam.vserves.bo.Status" />
-		<mapping class="com.slokam.vserves.bo.Country" />
-		<mapping class="com.slokam.vserves.bo.State" />
-		<mapping class="com.slokam.vserves.bo.Category" />
-		<mapping class="com.slokam.vserves.bo.Role" />
-		<mapping class="com.slokam.vserves.bo.Workitem" /> 
-		 <mapping class="com.slokam.vserves.bo.SerialNumber" />
-	    <mapping class="com.slokam.vserves.bo.PaymentType" />
-	    <mapping class="com.slokam.vserves.bo.WorkitemStatus" />
+		 <property name="hbm2ddl.auto">update</property>  
+		 
+	 <mapping class="com.sai.WholesaleTransport.pojo." />
+		
 		
 
 	</session-factory>
