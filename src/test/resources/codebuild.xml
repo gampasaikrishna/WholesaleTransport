@@ -1,0 +1,322 @@
+<codeBuild>
+	<basePackage>com.slokam.vserves</basePackage>
+	<boPackage>bo</boPackage>
+	<namedParameters>firstName,mobileNumber,personId,servicetypeIds[],username,serviceId,workitemId,loginId,employeeId,debitCardNumber</namedParameters>
+	<requirements>
+	
+		<!-- <requirement>
+			<function>SaveCustomer</function>
+			<url>/save_customer</url>
+			<security>ROLE_ADMIN</security>
+			<query>Login</query>
+			<type>RECURSIVE_SAVE</type>
+		</requirement>
+		 -->
+		 
+		<!-- <requirement>
+			<function>SaveEmployee</function>
+			<url>/save_employee</url>
+			<security>ROLE_ADMIN</security>
+			<query>Login</query>
+			<type>RECURSIVE_SAVE</type>
+		</requirement>
+		 -->
+		<requirement>
+			<function>SearchPersons</function>
+			<url>/search_customer</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT DISTINCT person.id,person.image, person.mailId,person.status.name,person.firstName,person.lastName FROM Person person LEFT JOIN person.login login WHERE  login.username LIKE :username AND person.mobileNumber = :mobileNumber AND person.debitCardNumber = :debitCardNumber  </query>
+			<type>SEARCH</type> 
+		</requirement>`
+		
+		<!-- <requirement>
+			<function>GetPerson</function>
+			<url>/get_person</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT login, person, address, residence, payment FROM Person person LEFT JOIN person.login login LEFT JOIN login.address address LEFT JOIN login.payment payment LEFT JOIN login.residence residence WHERE person.id = :personId</query>
+			<type>SELECT</type>
+		</requirement> -->
+		
+		
+		<!-- <requirement>
+			<function>UpdateAddress</function>
+			<url>/update_address</url>
+			<security>ROLE_ADMIN</security>
+			<query>Address</query>
+			<type>UPDATE</type>
+		</requirement> -->
+		
+		<!-- <requirement>
+			<function>UpdatePerson</function>
+			<url>/update_person</url>
+			<security>ROLE_ADMIN</security>
+			<query>Person</query>
+			<type>UPDATE</type>
+		</requirement> -->
+		
+		<!-- <requirement>
+			<function>UpdateResidence</function>
+			<url>/update_residence</url>
+			<security>ROLE_ADMIN</security>
+			<query>Residence</query>
+			<type>UPDATE</type>
+		</requirement> -->
+		
+		<!-- <requirement>
+			<function>UpdatePayment</function>
+			<url>/update_payment</url>
+			<security>ROLE_ADMIN</security>
+			<query>Payment</query>
+			<type>UPDATE</type>
+		</requirement> -->
+		
+	 <!--  <requirement>
+			<function>GetServicePersons</function>
+			<url>/get_service_persons</url>
+			<security>ROLE_ADMIN</security>
+			<query> SELECT DISTINCT person.id, person.firstName  FROM Person person LEFT JOIN person.servicetype servicetype WHERE servicetype.id IN (:servicetypeIds) </query>
+		    <type>SELECT</type>
+		</requirement>  -->
+	 
+	
+		 
+		<!--  <requirement>
+			<function>SaveWorkitem</function>
+			<url>/save_workitem</url>
+			<security>ROLE_ADMIN</security>
+			<query>Workitem</query>
+			<type>SAVE</type>
+		</requirement>
+		 -->
+	<!--  <requirement>
+			<function>SaveService</function>
+			<url>/save_service</url>
+			<security>ROLE_ADMIN</security>
+			<query>Service</query>
+			<type>SAVE</type>
+		</requirement> -->
+		
+		 <!--  <requirement>
+			<function>GetServices</function>
+			<url>/get_services</url>
+			<security>ROLE_ADMIN</security>
+			<query>FROM Service ORDER BY title ASC</query>
+			<type>SELECT</type>
+		</requirement>  -->
+		
+			 <!--  <requirement>
+			<function>GetServiceDescription</function>
+			<url>/get_service_description</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT service.id,service.title, service.image,service.description FROM Service service WHERE service.id = :serviceId</query>
+			<type>SELECT</type>
+		</requirement>  -->
+		
+<!-- 		
+  <requirement>
+			<function>SearchWorkitems</function>
+			<url>/search_workitems</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT DISTINCT workitem.id,workstatus.name,person.image,person.firstName,person.lastName FROM Person person LEFT JOIN person.workitem workitem LEFT JOIN workitem.workitemstatus workstatus LEFT JOIN person.login login LEFT JOIN login.role role WHERE  login.username LIKE :username AND person.mobileNumber = :mobileNumber AND role.name = 'ROLE_CUSTOMER' AND workitem.id != null AND workstatus.id != null  </query>
+			<type>SEARCH</type> 
+		</requirement> 
+	 -->
+   <!-- <requirement>
+			<function>GetWorkitem</function>
+			<url>/get_workitem</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT workitem , assigned_employee.id, customer.id FROM Workitem workitem LEFT JOIN workitem.assigned_employee assigned_employee LEFT JOIN workitem.customer customer  WHERE workitem.id = :workitemId </query>
+			<type>SELECT</type>
+		</requirement>   -->
+		
+	
+	
+	
+ 
+	<!--  <requirement>
+			<function>GetCurrentPerson</function>
+			<url>/get_currentperson</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT login, person, address, residence FROM Person person LEFT JOIN person.login login LEFT JOIN login.address address LEFT JOIN login.residence residence WHERE login.username= :loginId</query>
+			<type>SELECT</type>
+		</requirement>  -->
+		
+		
+		<!--  <requirement>
+			<function>SearchEmployees</function>
+			<url>/search_employee</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT DISTINCT person.id,person.image, person.mailId,person.firstName,person.lastName,servicetype.name FROM Person person LEFT JOIN person.login login  LEFT JOIN person.servicetype servicetype WHERE  login.username LIKE :username AND person.mobileNumber = :mobileNumber AND servicetype.id != null AND GROUP BY person.id</query>
+			<type>SEARCH</type> 
+		</requirement> -->
+		
+	 <!-- <requirement>
+			<function>GetEmployee</function>
+			<url>/get_employee</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT login, person FROM Person person LEFT JOIN person.login login  WHERE person.id = :employeeId</query>
+			<type>SELECT</type>
+		</requirement>  -->
+		
+		<!--   <requirement>
+			<function>DeleteService</function>
+			<url>/delete_service</url>
+			<security>ROLE_ADMIN</security>
+			<query>Service</query>
+			<type>DELETE</type> 
+		  </requirement> -->
+		  
+		<!--  <requirement>
+			<function>DeleteCustomer</function>
+			<url>/delete_customer</url>
+			<security>ROLE_ADMIN</security>
+			<query>Person</query>
+			<type>DELETE</type> 
+		  </requirement> -->
+		  
+		<!--  <requirement>
+			<function>DeleteEmployee</function>
+			<url>/delete_employee</url>
+			<security>ROLE_ADMIN</security>
+			<query>Person</query>
+			<type>DELETE</type> 
+		  </requirement>
+		 -->
+		
+	
+	
+	
+	
+	
+		<!-- <requirement>
+			<function>SavePerson</function>
+			<url>/save_person</url>
+			<security>ROLE_ADMIN</security>
+			<query>Person</query>
+			<type>RECURSIVE_SAVE</type>
+		</requirement>
+		<requirement>
+			<function>SaveVideo</function>
+			<url>/save_video</url>
+			<security>ROLE_ADMIN</security>
+			<query>Video</query>
+			<type>SAVE</type>
+		</requirement>
+		<requirement>
+			<function>SaveProject</function>
+			<url>/save_project</url>
+			<security>ROLE_ADMIN</security>
+			<query>Project</query>
+			<type>SAVE</type>
+		</requirement>
+		<requirement>
+			<function>SaveTimeslot</function>
+			<url>/save_timeslot</url>
+			<security>ROLE_ADMIN</security>
+			<query>Timeslot</query>
+			<type>SAVE</type>
+		</requirement>
+		<requirement>
+			<function>SaveRequest</function>
+			<url>/save_request</url>
+			<security>ROLE_ADMIN,ROLE_STUDENT</security>
+			<query>Request</query>
+			<type>SAVE</type>
+		</requirement>
+		<requirement>
+			<function>SaveBatch</function>
+			<url>/save_batch</url>
+			<security>ROLE_ADMIN</security>
+			<query>Batch</query>
+			<type>SAVE</type>
+		</requirement>
+		
+		<requirement>
+			<function>GetAllPersons</function>
+			<url>/get_all_persons</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT person.id, person.image, person.firstName, person.lastName FROM Person person ORDER BY person.firstName</query>
+			<type>SELECT</type>
+		</requirement>
+		<requirement>
+			<function>GetPerson</function>
+			<url>/get_person</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT person, enquiry, reference, student FROM Person person LEFT JOIN person.enquiry enquiry LEFT JOIN person.reference reference LEFT JOIN person.student student WHERE person.id = :personId</query>
+			<type>SELECT</type>
+		</requirement>
+		<requirement>
+			<function>SearchPersons</function>
+			<url>/search_persons</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT DISTINCT person.id, person.image, person.firstName, person.lastName FROM Person person LEFT JOIN person.student student LEFT JOIN student.batch batch WHERE person.personType.id = :personTypeId AND person.name LIKE :personName AND person.mobileNumber = :mobileNumber AND batch.id = :batchId</query>
+			<type>SEARCH</type>
+		</requirement>
+		<requirement>
+			<function>GetBatchPersons</function>
+			<url>/get_batch_persons</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT DISTINCT person.id, person.image, person.firstName, person.lastName FROM Person person JOIN person.student student JOIN student.batch batch WHERE batch.id = :batchId</query>
+			<type>SELECT</type>
+		</requirement>
+		
+		<requirement>
+			<function>SearchVideos</function>
+			<url>/search_videos</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT video.id, video.name, video.batch.id, video.batch.name FROM Video video WHERE video.name LIKE :videoName AND video.batch.id = :batchId</query>
+			<type>SEARCH</type>
+		</requirement>
+		<requirement>
+			<function>GetBatchVideos</function>
+			<url>/get_batch_videos</url>
+			<security>ROLE_ADMIN,ROLE_STUDENT</security>
+			<query>SELECT DISTINCT video.id, video.name FROM Video video WHERE video.batch.id = :batchId</query>
+			<type>SELECT</type>
+		</requirement>
+		
+		<requirement>
+			<function>GetProject</function>
+			<url>/get_project</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT project FROM Project project WHERE project.id = :projectId</query>
+			<type>SELECT</type>
+		</requirement>
+		<requirement>
+			<function>SearchProjects</function>
+			<url>/search_projects</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT project.id, project.title, project.client FROM Project project WHERE project.title LIKE :projectTitle</query>
+			<type>SEARCH</type>
+		</requirement>
+		
+		<requirement>
+			<function>GetRequest</function>
+			<url>/get_request</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT request FROM Request request WHERE request.id = :requestId</query>
+			<type>SELECT</type>
+		</requirement>
+		<requirement>
+			<function>SearchRequests</function>
+			<url>/search_requests</url>
+			<security>ROLE_ADMIN</security>
+			<query>SELECT DISTINCT request.id, person.firstName, person.lastName, person.image, request.requestType.name, batch.id, batch.name, request.statusType.name, video.name, video.batch.id, video.batch.name FROM Request request LEFT JOIN request.person person LEFT JOIN person.student student LEFT JOIN student.batch batch LEFT JOIN request.video video WHERE request.requestType.id = :requestTypeId AND request.statusType.id = :statusTypeId AND batch.id = :batchId AND person.id = :personId</query>
+			<type>SEARCH</type>
+		</requirement>
+		
+		<requirement>
+			<function>GetCurrentPerson</function>
+			<url>/get_current_person</url>
+			<security>ROLE_ADMIN,ROLE_STUDENT</security>
+			<query>SELECT person.id, person.image, person.firstName, person.lastName, batch.id FROM Person person LEFT JOIN person.student student LEFT JOIN student.batch batch WHERE person.id = :personId</query>
+			<type>SELECT</type>
+		</requirement> -->
+	</requirements>
+</codeBuild>
+
+<!-- FileController, FileService, GetCurrentPersonController(changes), PlayerController, SaveRequestService(changes)
+UtilController, UtilService, UtilDao -->
+
+
+<!-- <query>    SELECT DISTINCT person.id, person.firstName  FROM Person person LEFT JOIN person.servicetype servicetype WHERE servicetype.id IN (:servicetypeIds) GROUP BY person.id HAVING COUNT(person.id) = :servicetypeIdsLength </query> -->

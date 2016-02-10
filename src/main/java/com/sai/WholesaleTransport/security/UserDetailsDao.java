@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.sai.WholesaleTransport.pojo.Login;
 
-
-
 @Component("userDetailsDao")
 public class UserDetailsDao {
 

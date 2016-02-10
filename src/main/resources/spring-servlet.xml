@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<context:annotation-config />
+	
+	<mvc:annotation-driven />
+
+	<!-- <mvc:default-servlet-handler /> -->
+	
+	<context:component-scan base-package="com.sai.WholesaleTransport" />
+
+	<context:property-placeholder location="/WEB-INF/WholesaleTransport.properties" />
+	
+	 <bean id="viewResolver"	class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="/WEB-INF/jsp/"
+		p:suffix=".jsp" /> 
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:maxUploadSize="${maxUploadSize}" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		p:driverClassName="${driverClassName}"
+		p:url="${url}"
+		p:username="${db_username}"
+		p:password="${db_password}"
+		p:connectionProperties="${connectionProperties}" />
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" 
+	    p:packagesToScan="com.slokam.vserves.bo" 
+	    p:dataSource-ref="dataSource">
+     	<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${databasePlatform}</prop>
+				<prop key="hibernate.show_sql">${showSql}</prop>
+			</props>
+		</property>
+	 </bean> 
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<sec:global-method-security secured-annotations="enabled" />
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
+		p:host="${mail_host}"
+		p:port="${mail_port}"
+		p:username="${mail_username}"
+		p:password="${mail_password}">
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${mail_auth}</prop>
+				<prop key="mail.smtp.starttls.enable">${mail_tls_enable}</prop>
+				<prop key="mail.smtp.ssl.trust">${mail_ssl_trust}</prop>
+			</props>
+		</property>
+	</bean> 
+	
+</beans>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
+
+	<!-- <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> -->
+	
+	<bean id="authenticationEntryPoint" class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint" />
+	
+	<bean id="accessDeniedHandler" class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />
+
+	<bean id="clientCredentialsTokenEndpointFilter" class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter"
+		p:authenticationManager-ref="clientAuthenticationManager" />
+	
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+	    <constructor-arg>
+	        <list>
+	            <bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter" />
+	            <bean class="org.springframework.security.access.vote.RoleVoter" />
+	            <bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+	        </list>
+	    </constructor-arg>
+	</bean>
+	
+	<bean id="clientDetailsUserService" class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
+	    <constructor-arg ref="clientDetails" />
+	    <!-- <property name="passwordEncoder" ref="passwordEncoder"></property> -->
+	</bean>
+	
+	<!-- Token store -->
+	<bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore" />
+	
+	<bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices"
+		p:supportRefreshToken="true"
+		p:clientDetailsService-ref="clientDetails"
+		p:tokenStore-ref="tokenStore" />
+	
+	<!-- Client definition -->
+	<oauth:client-details-service id="clientDetails">
+	    <oauth:client client-id="vserves"
+					  authorized-grant-types="password,authorization_code,refresh_token,implicit,redirect"
+					  authorities="ROLE_CLIENT,ROLE_TRUSTED_CLIENT"
+					  scope="read,write,trust"
+					  refresh-token-validity="5"
+					  access-token-validity="86400" />
+	</oauth:client-details-service>
+	
+	<!-- Definition of the authentication service -->
+	<sec:http pattern="/oauth/token"
+	          use-expressions="false"
+			  create-session="never"
+			  authentication-manager-ref="clientAuthenticationManager">
+	    <sec:intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY" />
+	    <sec:anonymous enabled="false" />
+	    <sec:http-basic entry-point-ref="authenticationEntryPoint" />
+	    <sec:custom-filter ref="clientCredentialsTokenEndpointFilter" after="BASIC_AUTH_FILTER" />
+	    <sec:access-denied-handler ref="accessDeniedHandler" />
+	    <sec:csrf disabled="true"/>
+	</sec:http>
+	
+	<!-- Protected resources -->
+	<sec:http create-session="never"
+			  entry-point-ref="authenticationEntryPoint"
+			  use-expressions="false"
+			  access-decision-manager-ref="accessDecisionManager" >
+	    <sec:anonymous enabled="false" />
+	    <sec:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
+	    <sec:access-denied-handler ref="accessDeniedHandler" />
+	    <sec:csrf disabled="true"/>
+	</sec:http>
+	
+	<!-- Authentication in config file -->
+	<sec:authentication-manager id="clientAuthenticationManager">
+	    <sec:authentication-provider user-service-ref="clientDetailsUserService">
+	    	<!-- <sec:password-encoder ref="passwordEncoder" /> -->
+	    </sec:authentication-provider>
+	</sec:authentication-manager>
+	
+	<sec:authentication-manager alias="autnenticationManager">
+	    <sec:authentication-provider user-service-ref="userDetailsService">
+	    	<!-- <sec:password-encoder ref="passwordEncoder" /> -->
+	    </sec:authentication-provider>
+	</sec:authentication-manager>
+	
+	<!-- Token management -->
+	<oauth:authorization-server client-details-service-ref="clientDetails"
+								token-services-ref="tokenServices">
+		<oauth:authorization-code />
+		<oauth:implicit />
+		<oauth:refresh-token />
+		<oauth:client-credentials />
+		<oauth:password />
+	</oauth:authorization-server>
+	
+	<oauth:resource-server id="resourceServerFilter" token-services-ref="tokenServices" />
+
+</beans>
