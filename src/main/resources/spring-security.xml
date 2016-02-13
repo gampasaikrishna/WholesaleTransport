@@ -55,7 +55,7 @@
 	          use-expressions="false"
 			  create-session="never"
 			  authentication-manager-ref="clientAuthenticationManager">
-	    <sec:intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY" />
+			  	    <sec:intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY" />
 	    <sec:anonymous enabled="false" />
 	    <sec:http-basic entry-point-ref="authenticationEntryPoint" />
 	    <sec:custom-filter ref="clientCredentialsTokenEndpointFilter" after="BASIC_AUTH_FILTER" />
